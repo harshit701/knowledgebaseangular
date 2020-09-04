@@ -1,0 +1,45 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-primary mt-3 float-right" [routerLink]="['add']">Add
+                Category</button>
+
+            <button type="button" class="btn btn-primary mt-3 mx-3 float-right"
+                [routerLink]="['/category-content']">List
+                Category Content</button>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <input type="text" class="form-control" id="search-text" aria-describedby="search-text" placeholder="Enter text to search" [(ngModel)]="text" autofocus>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">name</th>
+                    <th scope="col">User</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of categoryList | filter:text; let i=index;">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{item.name}}</td>
+                    <td>{{item.user_name}}</td>
+                    <td colspan="2">
+                        <button class="btn btn-primary" routerLink='edit/{{item.id}}'>Edit</button>
+                        <button class="btn btn-danger mx-2" (click)="deleteCategory(item.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

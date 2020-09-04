@@ -1,0 +1,52 @@
+<!-- main app container -->
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h3>{{id ? 'Edit Category Content' : 'Add Category Content'}}</h3>
+                <form #categoryContentForm="ngForm" (ngSubmit)="categoryContentForm.form.valid && OnSubmit()"
+                    novalidate>
+                    <div class="form-group">
+                        <label for="name">Category</label>
+                        <select class="form-control" name="category_id" [(ngModel)]="categorycontent.category_id"
+                            #category_id="ngModel"
+                            [ngClass]="{ 'is-invalid': categoryContentForm.submitted && category_id.invalid }" required>
+                            <option *ngFor="let category of catetoryData" [value]="category.id">{{category.name}}
+                            </option>
+                        </select>
+                        <div *ngIf="categoryContentForm.submitted && category_id.invalid" class="invalid-feedback">
+                            <div *ngIf="category_id.errors.required">Please select category from list.</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" name="description" [(ngModel)]="categorycontent.description"
+                            #description="ngModel"
+                            [ngClass]="{ 'is-invalid': categoryContentForm.submitted && description.invalid }"
+                            required></textarea>
+                        <div *ngIf="categoryContentForm.submitted && !description.valid" class="invalid-feedback">
+                            Description is required
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Upload Image</label>
+                        <div>
+                            <input type='file' (change)="onSelectFile($event)" name="file" required>
+                            <ng-container *ngIf="url">
+                                <img [src]="url" height="200"> <br />
+                            </ng-container>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button
+                            class="btn btn-primary">{{id ? 'Update Category Content' : 'Save Category Content'}}</button>
+                        <button class="btn btn-danger mx-2" [routerLink]="['/category-content']">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
